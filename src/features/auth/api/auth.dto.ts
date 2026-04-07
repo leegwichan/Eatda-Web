@@ -14,6 +14,12 @@ export type LoginResponseDto = {
   };
 };
 
+export type DevLoginRequestDto = {
+  socialId: string;
+  email: string;
+  nickname: string;
+};
+
 export type ReissueRequestDto = {
   refreshToken: string;
 };

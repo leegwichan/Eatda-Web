@@ -5,6 +5,7 @@ import { clearClientSessionCache } from "@/shared/lib/session";
 
 import {
   deleteClientSession,
+  postClientDevLogin,
   postClientLogin,
   postClientReissue,
 } from "./auth.api";
@@ -14,6 +15,18 @@ export const useLoginMutation = () => {
 
   return useMutation({
     mutationFn: postClientLogin,
+    onSuccess: response => {
+      clearClientSessionCache();
+      queryClient.setQueryData(memberQueryKeys.me(), response);
+    },
+  });
+};
+
+export const useDevLoginMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: postClientDevLogin,
     onSuccess: response => {
       clearClientSessionCache();
       queryClient.setQueryData(memberQueryKeys.me(), response);

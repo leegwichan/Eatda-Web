@@ -10,7 +10,10 @@ import { Button } from "@/shared/components/ui/Button";
 import { GNB } from "@/shared/components/ui/GNB";
 import { TextButton } from "@/shared/components/ui/TextButton";
 
+import { DevLoginForm } from "./_components/DevLoginForm";
 import * as styles from "./_styles/Login.css";
+
+const isDevLoginEnabled = process.env.NEXT_PUBLIC_DEV_LOGIN_ENABLED === "true";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -66,19 +69,25 @@ export default function LoginPage() {
               우리의 식사가 누군가의 내일을 바꿉니다
             </p>
           </div>
-          <div className={styles.kakaoButtonWrapper}>
-            <Button
-              variant='custom'
-              size='fullWidth'
-              className={styles.kakaoButton}
-              onClick={redirectToKakaoOAuthLoginPage}
-            >
-              <KakaoLogoIcon className={styles.kakaoLogo} />
-              <span className={styles.kakaoText}>
-                카카오로 3초 만에 시작하기
-              </span>
-            </Button>
-          </div>
+          {isDevLoginEnabled ? (
+            <div className={styles.devLoginWrapper}>
+              <DevLoginForm />
+            </div>
+          ) : (
+            <div className={styles.kakaoButtonWrapper}>
+              <Button
+                variant='custom'
+                size='fullWidth'
+                className={styles.kakaoButton}
+                onClick={redirectToKakaoOAuthLoginPage}
+              >
+                <KakaoLogoIcon className={styles.kakaoLogo} />
+                <span className={styles.kakaoText}>
+                  카카오로 3초 만에 시작하기
+                </span>
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </main>

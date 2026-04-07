@@ -85,6 +85,14 @@ export const kakaoButtonWrapper = style({
   padding: "4rem 2rem",
 });
 
+export const devLoginWrapper = style({
+  width: "100%",
+  padding: "4rem 2rem",
+  display: "flex",
+  flexDirection: "column",
+  gap: "1.2rem",
+});
+
 export const kakaoButton = style({
   backgroundColor: "#FAE300",
   gap: "0.8rem",

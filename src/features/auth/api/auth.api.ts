@@ -1,6 +1,7 @@
 import { http, nextHttp } from "@/shared/lib/api/client";
 
 import type {
+  DevLoginRequestDto,
   LoginRequestDto,
   LoginResponseDto,
   ReissueRequestDto,
@@ -43,6 +44,18 @@ export const redirectToKakaoOAuthLoginPage = async () => {
   window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login/oauth`;
 };
 
+/**
+ * 백엔드의 /api/auth/dev-login 엔드포인트에 Dev 로그인 요청을 보냅니다.
+ *
+ * @param {DevLoginRequestDto} params - socialId, email, nickname
+ * @returns {Promise<LoginResponseDto>} 로그인 응답 데이터
+ */
+export const postDevLogin = async (params: DevLoginRequestDto) => {
+  return await http
+    .post("api/auth/dev-login", { json: params })
+    .json<LoginResponseDto>();
+};
+
 type Information = Omit<LoginResponseDto, "token">["information"];
 
 /**
@@ -56,6 +69,18 @@ export const postClientLogin = async (
 ) => {
   return await nextHttp
     .post("api/auth/login", { json: params })
+    .json<Information>();
+};
+
+/**
+ * Next.js API Route(/api/auth/dev-login)를 통해 Dev 로그인 요청을 보냅니다.
+ *
+ * @param {DevLoginRequestDto} params - socialId, email, nickname
+ * @returns {Promise<Information>} 회원 정보
+ */
+export const postClientDevLogin = async (params: DevLoginRequestDto) => {
+  return await nextHttp
+    .post("api/auth/dev-login", { json: params })
     .json<Information>();
 };
 

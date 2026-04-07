@@ -1,8 +1,10 @@
 // Auth API
 export {
   deleteClientSession,
+  postClientDevLogin,
   postClientLogin,
   postClientReissue,
+  postDevLogin,
   postLogin,
   postReissue,
   redirectToKakaoOAuthLoginPage,
@@ -10,6 +12,7 @@ export {
 
 // Auth DTO
 export type {
+  DevLoginRequestDto,
   LoginRequestDto,
   LoginResponseDto,
   ReissueRequestDto,
@@ -19,6 +22,7 @@ export type {
 // Auth Queries (Mutations)
 export {
   useDeleteSessionMutation,
+  useDevLoginMutation,
   useLoginMutation,
   useReissueMutation,
 } from "./auth.queries";
