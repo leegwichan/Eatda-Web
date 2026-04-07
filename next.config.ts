@@ -38,6 +38,12 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "4566",
+        pathname: "/eatda-storage-local/**",
+      },
     ],
   },
 };
