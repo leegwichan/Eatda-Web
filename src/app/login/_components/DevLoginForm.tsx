@@ -1,15 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 import { useDevLoginMutation } from "@/features/auth/api";
 import { Button } from "@/shared/components/ui/Button";
-import { TextField } from "@/shared/components/ui/TextField";
 
 export const DevLoginForm = () => {
   const router = useRouter();
-  const [nickname, setNickname] = useState("");
   const { mutate: devLogin, isPending } = useDevLoginMutation();
 
   const handleSubmit = () => {
@@ -19,7 +16,7 @@ export const DevLoginForm = () => {
       {
         socialId: `dev-${timestamp}`,
         email: `dev-${timestamp}@dev.local`,
-        nickname,
+        nickname: "테스트 유저",
       },
       {
         onSuccess: response => {
@@ -38,21 +35,13 @@ export const DevLoginForm = () => {
   };
 
   return (
-    <>
-      <TextField
-        label='닉네임'
-        placeholder='닉네임을 입력하세요'
-        value={nickname}
-        onChange={e => setNickname(e.target.value)}
-      />
-      <Button
-        variant='primary'
-        size='fullWidth'
-        disabled={!nickname.trim() || isPending}
-        onClick={handleSubmit}
-      >
-        {isPending ? "로그인 중..." : "Dev 로그인"}
-      </Button>
-    </>
+    <Button
+      variant='primary'
+      size='fullWidth'
+      disabled={isPending}
+      onClick={handleSubmit}
+    >
+      {isPending ? "로그인 중..." : "Dev 로그인"}
+    </Button>
   );
 };
